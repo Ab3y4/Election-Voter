@@ -1,3 +1,4 @@
+import 'package:election_voter/Screens/LanguageScreen.dart';
 import 'package:election_voter/Screens/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFbbbfca),
+      backgroundColor: Color(0xFF9ba4b4),
       body: Column(
         children: [
           SizedBox(height: 60,),
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return LoginScreen();
+                return LanguageScreen();
               }));
             },
             child: Text(
