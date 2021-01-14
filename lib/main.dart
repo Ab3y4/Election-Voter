@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/' : (context) => SplashScreen(),
-        '/login' : (context) => LoginScreen(),
         '/language' : (context) => LanguageScreen(),
         '/signup' : (context) => SignupScreen(),
+        '/login' : (context) => LoginScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

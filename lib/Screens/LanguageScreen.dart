@@ -18,7 +18,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF9ba4b4),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

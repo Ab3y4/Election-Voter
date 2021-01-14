@@ -30,7 +30,7 @@ class TextInputField extends StatelessWidget {
       height: size.height * 0.09,
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: Color(0xFFee9595).withOpacity(0.5),
+        color: Color(0xFFebebeb).withOpacity(0.5),
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
@@ -41,20 +41,20 @@ class TextInputField extends StatelessWidget {
             child: Icon(
               icon,
               size: 28,
-              color: Colors.white,
+              color: Color(0xFF28abb9),
             ),
           ),
           contentPadding: EdgeInsets.only(top: 25),
           hintText: hint,
           hintStyle: GoogleFonts.lato(
             fontSize: 25,
-            color: Colors.white,
+            color: Color(0xFF28abb9),
           ),
         ),
         obscureText: obsecureText,
         style: GoogleFonts.lato(
           fontSize: 20,
-          color: Colors.white,
+          color: Color(0xFF28abb9),
         ),
         keyboardType: inputType,
         textInputAction: inputAction,
