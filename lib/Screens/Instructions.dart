@@ -49,7 +49,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF9ba4b4),
     body: Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF9ba4b4),
       body: ClipRect(
           child: Stack(
             children: [

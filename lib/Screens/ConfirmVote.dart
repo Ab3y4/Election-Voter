@@ -32,7 +32,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF9ba4b4),
       body: Column(
         children: [
           SizedBox(height: 200,),
