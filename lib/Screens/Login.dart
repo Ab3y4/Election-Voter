@@ -40,36 +40,38 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       backgroundColor: Color(0xFF9ba4b4),
       body: ClipRect(
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  SizedBox(height: 150,),
-                  TextInputField(
-                    size: size,
-                    icon: FontAwesomeIcons.envelope,
-                    hint: 'OTP',
-                    obsecureText: true,
-                    inputAction: TextInputAction.done,
-                    inputType: TextInputType.number,
-                    onSubmit: (value) {
-                      enteredOTP = value;
-                    },
-                  ),
-                  SizedBox(height: 50,),
-                  RoundedButton(
+          child: Center(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: 150,),
+                    TextInputField(
                       size: size,
-                      buttonText: 'Submit',
-                      onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) {
-                            return InstructionsScreen();
-                          }));
-                        }
-                  )
-                ],
-              )
-            ],
+                      icon: FontAwesomeIcons.envelope,
+                      hint: 'OTP',
+                      obsecureText: true,
+                      inputAction: TextInputAction.done,
+                      inputType: TextInputType.number,
+                      onSubmit: (value) {
+                        enteredOTP = value;
+                      },
+                    ),
+                    SizedBox(height: 50,),
+                    RoundedButton(
+                        size: size,
+                        buttonText: 'Submit',
+                        onPressed: () {
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) {
+                              return InstructionsScreen();
+                            }));
+                          }
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
       ),
     );

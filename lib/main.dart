@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Election Voter',
       initialRoute: '/',
       routes: {
-        '/' : (context) => InstructionsScreen(),
+        '/' : (context) => LoginScreen(),
         '/language' : (context) => LanguageScreen(),
         '/signup' : (context) => SignupScreen(),
         '/login' : (context) => LoginScreen(),
