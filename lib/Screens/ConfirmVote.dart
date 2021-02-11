@@ -66,7 +66,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) {
-                        return Instructions();
+                        return InstructionsScreen();
                       }));
                     }
                 ),
@@ -77,7 +77,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) {
-                        return Instructions();
+                        return InstructionsScreen();
                       }));
                     }
                 )

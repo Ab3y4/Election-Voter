@@ -69,7 +69,7 @@ class _DoneVoteState extends State<DoneVoting> {
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) {
-                        return Instructions();
+                        return InstructionsScreen();
                       }));
                     }
                 )

@@ -1,5 +1,6 @@
 import 'package:election_voter/Screens/ConfirmVote.dart';
 import 'package:election_voter/Screens/DoneVoting.dart';
+import 'package:election_voter/Screens/Instructions.dart';
 import 'package:election_voter/Screens/Login.dart';
 import 'package:election_voter/Screens/SignupScreen.dart';
 import 'package:election_voter/Screens/SplashScreen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Election Voter',
       initialRoute: '/',
       routes: {
-        '/' : (context) => DoneVoting(),
+        '/' : (context) => InstructionsScreen(),
         '/language' : (context) => LanguageScreen(),
         '/signup' : (context) => SignupScreen(),
         '/login' : (context) => LoginScreen(),
