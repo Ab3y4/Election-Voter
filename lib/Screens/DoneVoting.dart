@@ -52,17 +52,17 @@ class _DoneVoteState extends State<DoneVoting> {
             ),
           ),
           SizedBox(height: 50,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Candidate Name'),
           SizedBox(height: 30,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Voting No'),
           SizedBox(height: 30,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Party'),
           SizedBox(height: 40,),
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 10,),
+                SizedBox(width: 12,),
                 RoundedButton(
                     size: size/1.8,
                     buttonText: 'Done',

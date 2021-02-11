@@ -50,11 +50,11 @@ class _ConfirmVoteState extends State<ConfirmVote> {
             ),
           ),
           SizedBox(height: 50,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Candidate Name'),
           SizedBox(height: 30,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Voting No'),
           SizedBox(height: 30,),
-          StyledText(text: 'Name'),
+          StyledText(text: 'Party'),
           SizedBox(height: 40,),
           Center(
             child: Row(
