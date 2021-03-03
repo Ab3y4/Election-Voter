@@ -1,10 +1,8 @@
-import 'package:election_voter/Screens/ConfirmVote.dart';
-import 'package:election_voter/Screens/DoneVoting.dart';
-import 'package:election_voter/Screens/Instructions.dart';
 import 'package:election_voter/Screens/Login.dart';
+import 'package:election_voter/Screens/PartyScreen.dart';
+import 'package:election_voter/Screens/PeopleList.dart';
 import 'package:election_voter/Screens/SignupScreen.dart';
 import 'package:election_voter/Screens/SplashScreen.dart';
-import 'package:election_voter/Screens/SuccessfulScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Screens/LanguageScreen.dart';
 
@@ -20,10 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'Election Voter',
       initialRoute: '/',
       routes: {
-        '/' : (context) => SuccessfulScreen(),
+        '/' : (context) => SplashScreen(),
         '/language' : (context) => LanguageScreen(),
         '/signup' : (context) => SignupScreen(),
         '/login' : (context) => LoginScreen(),
+        '/party' : (context) => PartyScreen(),
+        '/candidates' : (context) => PeopleList(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -1,17 +1,51 @@
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/StyledText.dart';
+import 'package:election_voter/Screens/DoneVoting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'Instructions.dart';
 
 class ConfirmVote extends StatefulWidget {
+
+  ConfirmVote({this.name, this.party, this.number});
+  String name;
+  String party;
+  String number;
+
   @override
   _ConfirmVoteState createState() => _ConfirmVoteState();
 }
 
 class _ConfirmVoteState extends State<ConfirmVote> {
+
+  String candidateName;
+  String candidateParty;
+  String candidateNumber;
+
+  @override
+  void initState() {
+    super.initState();
+
+    UpdateUI(
+        widget.name,
+        widget.party,
+        widget.number
+    );
+  }
+
+  void UpdateUI(
+      String name,
+      String party,
+      String number,
+      ){
+    setState(() {
+      candidateName = name;
+      candidateParty = party;
+      candidateNumber = number;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -50,11 +84,11 @@ class _ConfirmVoteState extends State<ConfirmVote> {
             ),
           ),
           SizedBox(height: 50,),
-          StyledText(text: 'Candidate Name'),
+          StyledText(text: '$candidateName'),
           SizedBox(height: 30,),
-          StyledText(text: 'Voting No'),
+          StyledText(text: '$candidateParty'),
           SizedBox(height: 30,),
-          StyledText(text: 'Party'),
+          StyledText(text: '$candidateNumber'),
           SizedBox(height: 40,),
           Center(
             child: Row(
@@ -64,10 +98,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
                     size: size/1.8,
                     buttonText: 'Back',
                     onPressed: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) {
-                        return InstructionsScreen();
-                      }));
+                      Navigator.pop(context);
                     }
                 ),
                 SizedBox(width: 10,),
@@ -77,7 +108,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) {
-                        return InstructionsScreen();
+                        return DoneVoting(name: candidateName, party: candidateParty, number: candidateNumber);
                       }));
                     }
                 )

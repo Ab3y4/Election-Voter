@@ -1,4 +1,5 @@
 import 'package:election_voter/Components/RoundedButton.dart';
+import 'package:election_voter/Screens/PartyScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -124,7 +125,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) {
-                    return ConfirmVote();
+                    return PartyScreen();
                   }));
                 },
               )

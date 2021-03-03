@@ -5,12 +5,25 @@ import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'SignupScreen.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    new Future.delayed(const Duration(seconds: 4), () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return SignupScreen();
+      }));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.black,
               ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return LanguageScreen();
-              }));
-            },
-            child: Text(
-              'Start',
-                style: GoogleFonts.lato(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                ),
-            ),
-          )
         ],
       ),
     );

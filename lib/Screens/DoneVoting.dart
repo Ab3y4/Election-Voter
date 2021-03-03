@@ -1,3 +1,4 @@
+import 'package:election_voter/Screens/SuccessfulScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/StyledText.dart';
@@ -9,12 +10,46 @@ import 'Instructions.dart';
 
 
 class DoneVoting extends StatefulWidget {
+
+  DoneVoting({this.name, this.party, this.number});
+  String name;
+  String party;
+  String number;
+
   @override
   _DoneVoteState createState() => _DoneVoteState();
 }
 
 class _DoneVoteState extends State<DoneVoting> {
+
+  String candidateName;
+  String candidateParty;
+  String candidateNumber;
+
   @override
+
+  void initState() {
+    super.initState();
+
+    UpdateUI(
+        widget.name,
+        widget.party,
+        widget.number
+    );
+  }
+
+  void UpdateUI(
+      String name,
+      String party,
+      String number,
+      ){
+    setState(() {
+      candidateName = name;
+      candidateParty = party;
+      candidateNumber = number;
+    });
+  }
+
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
@@ -52,11 +87,11 @@ class _DoneVoteState extends State<DoneVoting> {
             ),
           ),
           SizedBox(height: 50,),
-          StyledText(text: 'Candidate Name'),
+          StyledText(text: '$candidateName'),
           SizedBox(height: 30,),
-          StyledText(text: 'Voting No'),
+          StyledText(text: '$candidateParty'),
           SizedBox(height: 30,),
-          StyledText(text: 'Party'),
+          StyledText(text: '$candidateNumber'),
           SizedBox(height: 40,),
           Center(
             child: Row(
@@ -69,7 +104,7 @@ class _DoneVoteState extends State<DoneVoting> {
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) {
-                        return InstructionsScreen();
+                        return SuccessfulScreen();
                       }));
                     }
                 )
