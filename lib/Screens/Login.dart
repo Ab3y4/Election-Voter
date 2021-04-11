@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/TextInputField.dart';
 import 'package:election_voter/Screens/Instructions.dart';
@@ -7,11 +5,31 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
+
+  LoginScreen({this.phone});
+  final phone;
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  String phoneNum;
+
+  void getPhone (dynamic phone) {
+    setState(() {
+      phoneNum = phone;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPhone(widget.phone);
+
+  }
 
   @override
   Widget build(BuildContext context) {

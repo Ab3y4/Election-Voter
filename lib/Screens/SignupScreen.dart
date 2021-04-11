@@ -100,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             print(phoneNumber);
                             print(electionNumber);
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return LoginScreen();
+                              return LoginScreen(phone: phoneNumber,);
                             }));
                           }
                       )

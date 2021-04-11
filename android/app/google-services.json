@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1018221222696",
+    "firebase_url": "https://election-voter-32e34-default-rtdb.firebaseio.com",
+    "project_id": "election-voter-32e34",
+    "storage_bucket": "election-voter-32e34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018221222696:android:35518ec909c3d615c38e1d",
+        "android_client_info": {
+          "package_name": "com.example.election_voter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018221222696-7jd393c4bfi2e57anbp1ar0n5nsngrvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAchCu9q-94rewMKOIZyIdtnh-R92NMwXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018221222696-7jd393c4bfi2e57anbp1ar0n5nsngrvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
