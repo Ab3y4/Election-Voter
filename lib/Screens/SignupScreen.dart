@@ -1,9 +1,12 @@
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/StyledText.dart';
 import 'package:election_voter/Screens/Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Components/TextInputField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'AuthService.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -11,6 +14,39 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _smsController = TextEditingController();
+  String _verificationId;
+
+  Future<void> verifyPhoneNumber(phoneNum) async {
+    final PhoneVerificationCompleted verified = (AuthCredential authResult) {
+      AuthService().signIn(authResult);
+    };
+
+    final PhoneVerificationFailed verificationFailed = (AuthException authException) {
+      print('${authException.message}');
+    };
+
+    final PhoneCodeSent smsSent = (String verID, [int forceResent]) {
+      this._verificationId = verID;
+    };
+
+    final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verID) {
+      this._verificationId = verID;
+    };
+
+    await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNum,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: verified,
+        verificationFailed: verificationFailed,
+        codeSent: smsSent,
+        codeAutoRetrievalTimeout: autoTimeout);
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,6 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
     String NIC;
     String phoneNumber;
     String electionNumber;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -71,10 +108,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         obsecureText: false,
                         inputAction: TextInputAction.next,
                         inputType: TextInputType.number,
-                        onSubmit: (value) {
+                        onChanged: (value) {
                           phoneNumber = value;
                           print(phoneNumber);
-                          return phoneNumber;
                         },
                       ),
                       SizedBox(height: 20,),
@@ -88,7 +124,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         onSubmit: (value) {
                           electionNumber = value;
                           print(electionNumber);
-                          return electionNumber;
                         },
                       ),
                       SizedBox(height: 30,),
@@ -99,6 +134,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             print(NIC);
                             print(phoneNumber);
                             print(electionNumber);
+                            //verifyPhoneNumber(phoneNumber);
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
                               return LoginScreen(phone: phoneNumber,);
                             }));

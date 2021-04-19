@@ -1,8 +1,13 @@
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/TextInputField.dart';
+import 'package:election_voter/Screens/AuthService.dart';
 import 'package:election_voter/Screens/Instructions.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:election_voter/Screens/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginScreen extends StatefulWidget {
 
@@ -16,6 +21,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   String phoneNum;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _smsController = TextEditingController();
+  String _verificationId;
+
+
 
   void getPhone (dynamic phone) {
     setState(() {
@@ -23,12 +34,39 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  Future<void> verifyPhoneNumber(phoneNum) async {
+    final PhoneVerificationCompleted verified = (AuthCredential authResult) {
+      AuthService().signIn(authResult);
+    };
+
+    final PhoneVerificationFailed verificationFailed = (AuthException authException) {
+      print('${authException.message}');
+    };
+
+    final PhoneCodeSent smsSent = (String verID, [int forceResent]) {
+      this._verificationId = verID;
+    };
+
+    final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verID) {
+      this._verificationId = verID;
+    };
+
+    await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNum,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: verified,
+        verificationFailed: verificationFailed,
+        codeSent: smsSent,
+        codeAutoRetrievalTimeout: autoTimeout);
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getPhone(widget.phone);
-
+    //getPhone(widget.phone);
+    // verifyPhoneNumber(phoneNum);
   }
 
   @override
@@ -65,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(height: 150,),
                     TextInputField(
+                      controller: _phoneNumberController,
                       size: size,
                       icon: FontAwesomeIcons.envelope,
                       hint: 'OTP',

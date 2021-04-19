@@ -12,6 +12,7 @@ class TextInputField extends StatelessWidget {
     this.inputType,
     this.onChanged,
     this.onSubmit,
+    this.controller,
   }) : super(key: key);
 
   final Size size;
@@ -22,6 +23,7 @@ class TextInputField extends StatelessWidget {
   final inputAction;
   final onChanged;
   final onSubmit;
+  final controller;
 
 
   @override
@@ -61,6 +63,7 @@ class TextInputField extends StatelessWidget {
         onChanged: onChanged,
         onSubmitted: onSubmit,
         autocorrect: true,
+        controller: controller,
       ),
     );
   }
