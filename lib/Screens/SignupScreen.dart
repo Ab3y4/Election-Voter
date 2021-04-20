@@ -17,6 +17,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _nicNumberController = TextEditingController();
+  final TextEditingController _electionNumberController = TextEditingController();
   final TextEditingController _smsController = TextEditingController();
   String _verificationId;
 
@@ -88,6 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(height: 20,),
                       TextInputField(
+                        controller: _nicNumberController,
                         size: size,
                         hint: 'NIC',
                         icon: FontAwesomeIcons.idCard,
@@ -102,6 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(height: 20,),
                       TextInputField(
+                        controller: _phoneNumberController,
                         size: size,
                         icon: FontAwesomeIcons.phone,
                         hint: 'Phone Number',
@@ -115,6 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(height: 20,),
                       TextInputField(
+                        controller: _electionNumberController,
                         size: size,
                         icon: FontAwesomeIcons.fileAlt,
                         hint: 'Election Number',
@@ -131,12 +136,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           size: size,
                           buttonText: 'Submit',
                           onPressed: () {
-                            print(NIC);
-                            print(phoneNumber);
-                            print(electionNumber);
-                            //verifyPhoneNumber(phoneNumber);
+                            print(_nicNumberController.text);
+                            print(_phoneNumberController.text);
+                            print(_electionNumberController.text);
+                            verifyPhoneNumber(_phoneNumberController.text);
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return LoginScreen(phone: phoneNumber,);
+                              return LoginScreen(phone: _phoneNumberController.text,);
                             }));
                           }
                       )
