@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
       height: size.height * 0.09,
       width: size.width * 0.8,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(9),
+        borderRadius: BorderRadius.circular(2),
         color: Color(0xFF9ad3bc),
       ),
       child: FlatButton(

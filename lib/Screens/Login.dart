@@ -94,14 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ),
-      backgroundColor: Color(0xFF9ba4b4),
+      backgroundColor: Colors.white,
       body: ClipRect(
           child: Center(
             child: Stack(
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 150,),
+                    SizedBox(height: 270,),
                     TextInputField(
                       controller: _phoneNumberController,
                       size: size,
@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         enteredOTP = value;
                       },
                     ),
-                    SizedBox(height: 50,),
+                    SizedBox(height: 90,),
                     RoundedButton(
                         size: size,
                         buttonText: 'Submit',

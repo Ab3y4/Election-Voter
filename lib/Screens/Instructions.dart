@@ -50,7 +50,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
           },
         ),
       ),
-      backgroundColor: Color(0xFF9ba4b4),
+      backgroundColor: Colors.white,
     body: Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +62,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                 builder: (BuildContext context) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    margin: EdgeInsets.symmetric(horizontal: 0.0),
                     decoration: BoxDecoration(
                       color: Colors.green,
                     ),
@@ -76,7 +76,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             }).toList(),
             carouselController: _controller,
             options: CarouselOptions(
-              height: 400.0,
+              height: 350.0,
               initialPage: 0,
               enlargeCenterPage: true,
               autoPlay: false,
@@ -94,7 +94,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 30,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +114,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             }).toList(),
           ),
           SizedBox(
-            height: 20.0,
+            height: 30.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

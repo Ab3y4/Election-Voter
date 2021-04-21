@@ -32,7 +32,7 @@ class TextInputField extends StatelessWidget {
       height: size.height * 0.09,
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: Color(0xFFebebeb).withOpacity(0.5),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(

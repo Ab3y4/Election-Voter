@@ -60,7 +60,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF9ba4b4),
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -78,14 +78,14 @@ class _SignupScreenState extends State<SignupScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 150,),
+                SizedBox(height: 90,),
                 ClipRect(
                   child: Column(
                     children: [
                       
                       Center(
                         child: StyledText(
-                          text: 'Signup to your account',
+                          text: 'Signup to Your Account',
                         ),
                       ),
                       SizedBox(height: 20,),
