@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:election_voter/translations/locale_keys.g.dart';
 
 import 'ConfirmVote.dart';
 
@@ -121,7 +123,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             children: <Widget>[
               RoundedButton(
                 size: size,
-                buttonText: "Next",
+                buttonText: LocaleKeys.next_button.tr(),
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) {

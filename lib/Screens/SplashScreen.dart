@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     new Future.delayed(const Duration(seconds: 4), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return SignupScreen();
+        return LanguageScreen();
       }));
     });
   }
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           SizedBox(height: 30,),
           Text(
-              'Election Voter',
+              'E-Voter',
               style: GoogleFonts.lato(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,

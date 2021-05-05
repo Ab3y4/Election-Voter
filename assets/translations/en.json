@@ -1,0 +1,13 @@
+{
+  "signup_to_your_text": "Signup to Your Account",
+  "nic_hint": "NIC",
+  "phone_hint": "Phone Number",
+  "election_hint": "Election ID",
+  "submit_button_s_up": "Submit",
+  "otp_hint": "OTP",
+  "login_button": "Login",
+  "next_button": "Next",
+  "successfully_voted_text": "Successfully Voted",
+  "you_will_be_automatically_text": "You will be automatically redirected to the Language screen"
+
+}

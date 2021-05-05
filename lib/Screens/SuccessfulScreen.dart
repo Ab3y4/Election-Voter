@@ -20,7 +20,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
 
     new Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return SignupScreen();
+        return LanguageScreen();
       }));
     });
   }
@@ -40,9 +40,9 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                 text: 'Successfully Voted',
               ),
             ),
-            SizedBox(height: 350,),
+            SizedBox(height: 250,),
             StyledText(
-                text: 'You will be automatically redirected to the signup screen',
+                text: 'You will be automatically redirected to the Language screen',
               ),
           ],
         )

@@ -7,7 +7,8 @@ import 'package:election_voter/Screens/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+import 'package:election_voter/translations/locale_keys.g.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white60,
       body: ClipRect(
           child: Center(
             child: Stack(
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _phoneNumberController,
                       size: size,
                       icon: FontAwesomeIcons.envelope,
-                      hint: 'OTP',
+                      hint: LocaleKeys.otp_hint.tr(),
                       obsecureText: true,
                       inputAction: TextInputAction.done,
                       inputType: TextInputType.number,
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 90,),
                     RoundedButton(
                         size: size,
-                        buttonText: 'Submit',
+                        buttonText: LocaleKeys.login_button.tr(),
                         onPressed: () {
                             Navigator.push(
                                 context, MaterialPageRoute(builder: (context) {

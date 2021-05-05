@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Components/TextInputField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:election_voter/translations/locale_keys.g.dart';
 
 import 'AuthService.dart';
 
@@ -84,15 +86,19 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       
                       Center(
-                        child: StyledText(
-                          text: 'Signup to Your Account',
+                        child: Text(
+                          LocaleKeys.signup_to_your_text.tr(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
+
                         ),
                       ),
                       SizedBox(height: 20,),
                       TextInputField(
                         controller: _nicNumberController,
                         size: size,
-                        hint: 'NIC',
+                        hint: LocaleKeys.nic_hint.tr(),
                         icon: FontAwesomeIcons.idCard,
                         obsecureText: false,
                         inputAction: TextInputAction.next,
@@ -108,7 +114,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: _phoneNumberController,
                         size: size,
                         icon: FontAwesomeIcons.phone,
-                        hint: 'Phone Number',
+                        hint: LocaleKeys.phone_hint.tr(),
                         obsecureText: false,
                         inputAction: TextInputAction.next,
                         inputType: TextInputType.number,
@@ -122,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: _electionNumberController,
                         size: size,
                         icon: FontAwesomeIcons.fileAlt,
-                        hint: 'Election Number',
+                        hint: LocaleKeys.election_hint.tr(),
                         obsecureText: false,
                         inputAction: TextInputAction.done,
                         inputType: TextInputType.number,
@@ -134,7 +140,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(height: 30,),
                       RoundedButton(
                           size: size,
-                          buttonText: 'Submit',
+                          buttonText: LocaleKeys.submit_button_s_up.tr(),
                           onPressed: () {
                             print(_nicNumberController.text);
                             print(_phoneNumberController.text);

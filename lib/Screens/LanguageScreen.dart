@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/StyledText.dart';
+import 'package:election_voter/translations/codegen_loader.g.dart';
+import 'package:election_voter/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LanguageScreen extends StatefulWidget {
   @override
@@ -18,7 +21,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color(0xFF9ba4b4),
+      backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -35,7 +38,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 150,),
+              SizedBox(height: 190,),
               Center(
                 child: StyledText(
                       text: 'Choose your language',
@@ -50,11 +53,12 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   )
                 ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 80,),
               RoundedButton(
                   size: size,
                   buttonText: 'English',
                   onPressed: () {
+                    context.setLocale(Locale('en'));
                     print('English');
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
                       return SignupScreen();
@@ -64,8 +68,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
               SizedBox(height: 30,),
               RoundedButton(
                 size: size,
-                buttonText: 'Sinhala',
-                onPressed: () {
+                buttonText: 'සිOහල',
+                onPressed: ()  {
+                  context.setLocale(Locale('fr'));
                   print('Sinhala');
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return SignupScreen();
@@ -73,16 +78,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 },
               ),
               SizedBox(height: 30,),
-              RoundedButton(
-                size: size,
-                buttonText: 'Tamil',
-                onPressed: () {
-                  print('Tamil');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return SignupScreen();
-                  }));
-                },
-              )
+
             ],
           ),
         ],
