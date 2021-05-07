@@ -15,26 +15,33 @@ class PeopleList extends StatefulWidget {
 }
 
 class _PeopleListState extends State<PeopleList> {
-  var db = FirebaseDatabase.instance.reference();
+  var _db = FirebaseDatabase.instance.reference();
   String candidate1Name, candidate2Name, candidate3Name, candidateParty;
   int candidate1Vote, candidate2Vote, candidate3Vote;
   List<String> imageList;
-  List<String> number;
+  List<String> voteNumberList;
+  List<int> votesList;
 
   @override
   void initState() {
-    //List<String> imageList = <String>["", "", ""];
     candidate1Name = "";
     candidate2Name = "";
     candidate3Name = "";
+    candidate1Vote = 0;
+    candidate2Vote = 0;
+    candidate3Vote = 0;
     candidateParty = "";
 
     if (widget.partyId == "Janatha Vimukthi Peramuna") {
-      number = <String>[
+      voteNumberList = <String>[
         "Vote for No 5",
         "Vote for No 10",
         "Vote for No 2",
       ];
+
+      print(candidate1Vote.toString() +
+          candidate2Vote.toString() +
+          candidate3Vote.toString());
       imageList = <String>[
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FJVP%2Fsunil.jpg?alt=media&token=9331baf0-ad37-422b-bc0e-9cb4b5e8cb8d",
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FJVP%2Ftilvin.jpg?alt=media&token=6e8c5e70-0c85-4eea-9b9a-ccdae7a552c7",
@@ -42,11 +49,12 @@ class _PeopleListState extends State<PeopleList> {
       ];
       getCandidateList1();
     } else if (widget.partyId == "Sri Lanka Freedom Party") {
-      number = <String>[
+      voteNumberList = <String>[
         "Vote for No 1",
         "Vote for No 3",
         "Vote for No 9",
       ];
+
       imageList = <String>[
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSLFP%2Fnimal.jpeg?alt=media&token=85576ab1-f9e5-45d3-9b87-551565c794c7",
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSLFP%2Fduminda.jpg?alt=media&token=f5a5358e-ca44-4525-9326-9fd7677e639f",
@@ -54,11 +62,12 @@ class _PeopleListState extends State<PeopleList> {
       ];
       getCandidateList2();
     } else if (widget.partyId == "United National Party") {
-      number = <String>[
+      voteNumberList = <String>[
         "Vote for No 2",
         "Vote for No 4",
         "Vote for No 8",
       ];
+
       imageList = <String>[
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FUNP%2Fwajira.jpg?alt=media&token=8e40708d-07f1-4657-90dc-5c5c826d705b",
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FUNP%2Franil.jpg?alt=media&token=df26e874-b498-4270-8bce-d58b8570d041",
@@ -66,11 +75,12 @@ class _PeopleListState extends State<PeopleList> {
       ];
       getCandidateList3();
     } else if (widget.partyId == "Samagi Jana Balawegaya") {
-      number = <String>[
+      voteNumberList = <String>[
         "Vote for No 13",
         "Vote for No 6",
         "Vote for No 11",
       ];
+
       imageList = <String>[
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSJB%2Fbuddika.jpg?alt=media&token=bfcdb6ba-c9e3-4324-8190-e0789f9352fa",
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSJB%2Fsajith.jpg?alt=media&token=73b5575f-1905-436e-8743-66f8ee2eedb9",
@@ -78,11 +88,12 @@ class _PeopleListState extends State<PeopleList> {
       ];
       getCandidateList4();
     } else if (widget.partyId == "Sri Lanka Podujana Peramuna") {
-      number = <String>[
+      voteNumberList = <String>[
         "Vote for No 21",
         "Vote for No 14",
         "Vote for No 19",
       ];
+
       imageList = <String>[
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSLPP%2Fmaithripala.jpg?alt=media&token=08728a91-f885-4d1d-9178-d28758c79ac6",
         "https://firebasestorage.googleapis.com/v0/b/election-voter-32e34.appspot.com/o/images%2FSLPP%2Fmahinda.jpg?alt=media&token=2258abaf-b041-4612-8ed7-50cf7a1a72da",
@@ -99,6 +110,11 @@ class _PeopleListState extends State<PeopleList> {
       candidate1Name,
       candidate2Name,
       candidate3Name
+    ];
+    final List<int> votes = <int>[
+      candidate1Vote,
+      candidate2Vote,
+      candidate3Vote
     ];
     final List<String> party = <String>["UNFP", "UNP", 'JVP'];
     final List<Color> colors = <Color>[
@@ -135,17 +151,21 @@ class _PeopleListState extends State<PeopleList> {
               return GestureDetector(
                   onTap: () {
                     String candidateName = name[index];
-                    //String candidateParty = candidateParty;
-                    String candidateNumber = number[index];
+                    String candidateNumber = voteNumberList[index];
+                    String candidateImage = imageList[index];
+                    int candidateVote = votes[index];
                     print(candidateName);
                     print(candidateParty);
                     print(candidateNumber);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return ConfirmVote(
-                          name: candidateName,
-                          party: candidateParty,
-                          number: candidateNumber);
+                        name: candidateName,
+                        party: candidateParty,
+                        number: candidateNumber,
+                        votes: candidateVote,
+                        imageUrl: candidateImage,
+                      );
                     }));
                   },
                   child: Container(
@@ -191,7 +211,7 @@ class _PeopleListState extends State<PeopleList> {
                               // color: colors[index],
                               child: Center(
                                   child: StyledText(
-                                text: number[index],
+                                text: voteNumberList[index],
                               )),
                             ),
                           ],
@@ -207,7 +227,7 @@ class _PeopleListState extends State<PeopleList> {
   }
 
   void getCandidateList1() {
-    db.child("JVP").once().then((DataSnapshot snapshot) {
+    _db.child("JVP").once().then((DataSnapshot snapshot) {
       List _nameList = snapshot.value.keys.toList();
       List _votesList = snapshot.value.values.toList();
 
@@ -236,7 +256,7 @@ class _PeopleListState extends State<PeopleList> {
   }
 
   void getCandidateList2() {
-    db.child("SLFP").once().then((DataSnapshot snapshot) {
+    _db.child("SLFP").once().then((DataSnapshot snapshot) {
       List _nameList = snapshot.value.keys.toList();
       List _votesList = snapshot.value.values.toList();
 
@@ -266,7 +286,7 @@ class _PeopleListState extends State<PeopleList> {
   }
 
   void getCandidateList3() {
-    db.child("UNP").once().then((DataSnapshot snapshot) {
+    _db.child("UNP").once().then((DataSnapshot snapshot) {
       List _nameList = snapshot.value.keys.toList();
       List _votesList = snapshot.value.values.toList();
 
@@ -296,7 +316,7 @@ class _PeopleListState extends State<PeopleList> {
   }
 
   void getCandidateList4() {
-    db.child("SJB").once().then((DataSnapshot snapshot) {
+    _db.child("SJB").once().then((DataSnapshot snapshot) {
       List _nameList = snapshot.value.keys.toList();
       List _votesList = snapshot.value.values.toList();
 
@@ -326,7 +346,7 @@ class _PeopleListState extends State<PeopleList> {
   }
 
   void getCandidateList5() {
-    db.child("SLPP").once().then((DataSnapshot snapshot) {
+    _db.child("SLPP").once().then((DataSnapshot snapshot) {
       List _nameList = snapshot.value.keys.toList();
       List _votesList = snapshot.value.values.toList();
 
