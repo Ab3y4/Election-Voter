@@ -2,7 +2,7 @@
   "signup_to_your_text": "Signup to Your Account",
   "nic_hint": "NIC",
   "phone_hint": "Phone Number",
-  "election_hint": "Election ID",
+  "name_hint": "Election ID",
   "submit_button_s_up": "Submit",
   "otp_hint": "OTP",
   "login_button": "Login",

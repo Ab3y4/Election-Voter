@@ -14,10 +14,8 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -38,38 +36,45 @@ class _LanguageScreenState extends State<LanguageScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 190,),
+              SizedBox(
+                height: 190,
+              ),
               Center(
                 child: StyledText(
-                      text: 'Choose your language',
+                  text: 'Choose your language',
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  )
-                ),
+                    border: Border.all(
+                  color: Colors.black,
+                )),
               ),
-              SizedBox(height: 80,),
-              RoundedButton(
-                  size: size,
-                  buttonText: 'English',
-                  onPressed: () {
-                    context.setLocale(Locale('en'));
-                    print('English');
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return SignupScreen();
-                    }));
-                  },
+              SizedBox(
+                height: 80,
               ),
-              SizedBox(height: 30,),
               RoundedButton(
                 size: size,
-                buttonText: 'සිOහල',
-                onPressed: ()  {
+                buttonText: 'English',
+                onPressed: () {
+                  context.setLocale(Locale('en'));
+                  print('English');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return SignupScreen();
+                  }));
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              RoundedButton(
+                size: size,
+                buttonText: 'සිoහල',
+                onPressed: () {
                   context.setLocale(Locale('fr'));
                   print('Sinhala');
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -77,8 +82,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   }));
                 },
               ),
-              SizedBox(height: 30,),
-
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ],
@@ -86,4 +92,3 @@ class _LanguageScreenState extends State<LanguageScreen> {
     );
   }
 }
-
