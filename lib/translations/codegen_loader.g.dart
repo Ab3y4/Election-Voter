@@ -18,11 +18,12 @@ class CodegenLoader extends AssetLoader {
     "signup_to_your_text": "Signup to Your Account",
     "nic_hint": "NIC",
     "phone_hint": "Phone Number",
-    "name_hint": "Election ID",
+    "name_hint": "Name",
     "submit_button_s_up": "Submit",
     "otp_hint": "OTP",
     "login_button": "Login",
     "next_button": "Next",
+    "parties_text": "Parties",
     "successfully_voted_text": "Successfully Voted",
     "you_will_be_automatically_text":
         "You will be automatically redirected to the Language screen"
@@ -31,11 +32,12 @@ class CodegenLoader extends AssetLoader {
     "signup_to_your_text": "ගිනුම සකසා ගන්න",
     "nic_hint": "ජා.හැ.අ",
     "phone_hint": "දුරකතන අoකය (+94)",
-    "name_hint": "ඡන්ද අOකය",
+    "name_hint": "නම",
     "submit_button_s_up": "යොමු කරන්න",
     "otp_hint": "රහස් අoකය",
     "login_button": "ඇතුල් වන්න",
     "next_button": "ඉදිරියට",
+    "parties_text": "පක්ෂ",
     "successfully_voted_text": "ඡන්දය යොමු කිරීම සාර්තකයි",
     "you_will_be_automatically_text":
         "ඔබව නැවත භාෂා තේරීමේ කවුලුව සදහා ඉබේම යොමු කෙරේ"

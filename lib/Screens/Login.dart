@@ -1,18 +1,21 @@
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/TextInputField.dart';
+import 'package:election_voter/Components/error_alert_dialog.dart';
 import 'package:election_voter/Screens/AuthService.dart';
 import 'package:election_voter/Screens/Instructions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:election_voter/Screens/SignupScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:election_voter/translations/locale_keys.g.dart';
 
 class LoginScreen extends StatefulWidget {
-
-  LoginScreen({this.phone});
+  LoginScreen({
+    this.phone,
+  });
   final phone;
 
   @override
@@ -20,19 +23,23 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   String phoneNum;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _smsController = TextEditingController();
   String _verificationId;
 
-
-
-  void getPhone (dynamic phone) {
+  void getPhone(dynamic phone) {
     setState(() {
       phoneNum = phone;
     });
+  }
+
+  @override
+  void initState() {
+    verifyPhoneNumber(widget.phone);
+    super.initState();
+    //getPhone(widget.phone);
   }
 
   Future<void> verifyPhoneNumber(phoneNum) async {
@@ -40,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
       AuthService().signIn(authResult);
     };
 
-    final PhoneVerificationFailed verificationFailed = (AuthException authException) {
+    final PhoneVerificationFailed verificationFailed =
+        (AuthException authException) {
       print('${authException.message}');
     };
 
@@ -59,26 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
         verificationFailed: verificationFailed,
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
-
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //getPhone(widget.phone);
-    // verifyPhoneNumber(phoneNum);
   }
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
-    int enteredOTP ;
+    int enteredOTP;
     int otp = 9999;
-    // var rand = new Random();
-    // otp = rand.nextInt(10000);
-    // print(otp);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -95,43 +90,83 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ),
-      backgroundColor: Colors.white60,
+      backgroundColor: Colors.white,
       body: ClipRect(
-          child: Center(
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(height: 270,),
-                    TextInputField(
-                      controller: _phoneNumberController,
-                      size: size,
-                      icon: FontAwesomeIcons.envelope,
-                      hint: LocaleKeys.otp_hint.tr(),
-                      obsecureText: true,
-                      inputAction: TextInputAction.done,
-                      inputType: TextInputType.number,
-                      onSubmit: (value) {
-                        enteredOTP = value;
-                      },
-                    ),
-                    SizedBox(height: 90,),
-                    RoundedButton(
+        child: Center(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 270,
+                  ),
+                  TextInputField(
+                    controller: _smsController,
+                    size: size,
+                    icon: FontAwesomeIcons.envelope,
+                    hint: LocaleKeys.otp_hint.tr(),
+                    obsecureText: true,
+                    inputAction: TextInputAction.done,
+                    inputType: TextInputType.number,
+                    onSubmit: (value) {
+                      enteredOTP = value;
+                    },
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: RoundedButton(
                         size: size,
                         buttonText: LocaleKeys.login_button.tr(),
                         onPressed: () {
-                            Navigator.push(
-                                context, MaterialPageRoute(builder: (context) {
-                              return InstructionsScreen();
-                            }));
+                          if (_verificationId == null) {
+                            showDialog(
+                                context: context,
+                                builder: (c) {
+                                  return ErrorAlertDialog(
+                                    message: "OTP Error",
+                                  );
+                                });
+                          } else {
+                            signIn(_smsController.text);
                           }
-                    )
-                  ],
-                )
-              ],
-            ),
+
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return InstructionsScreen();
+                          // }));
+                        }),
+                  )
+                ],
+              )
+            ],
           ),
+        ),
       ),
     );
+  }
+
+  Future<void> signIn(String otp) async {
+    try {
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: _verificationId,
+        smsCode: otp,
+      );
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InstructionsScreen(),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 }

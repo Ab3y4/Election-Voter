@@ -67,7 +67,7 @@ class _ConfirmVoteState extends State<ConfirmVote> {
           },
         ),
       ),
-      backgroundColor: Color(0xFF9ba4b4),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           SizedBox(
@@ -86,40 +86,69 @@ class _ConfirmVoteState extends State<ConfirmVote> {
             ),
           ),
           SizedBox(
-            height: 50,
-          ),
-          StyledText(text: '$candidateName'),
-          SizedBox(
-            height: 30,
-          ),
-          StyledText(text: '$candidateParty'),
-          SizedBox(
-            height: 30,
-          ),
-          StyledText(text: '$candidateNumber'),
-          SizedBox(
             height: 40,
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledText(text: 'Candidate Name: '),
+                  StyledText(text: '$candidateName'),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledText(text: 'Candidate Name: '),
+                  StyledText(text: '$candidateParty'),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledText(text: 'Candidate No: '),
+                  StyledText(text: '$candidateNumber'),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
           Center(
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RoundedButton(
-                    size: size / 1.8,
-                    buttonText: 'Back',
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                SizedBox(
-                  width: 10,
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: RoundedButton(
+                      size: size,
+                      buttonText: 'Submit',
+                      onPressed: () {
+                        candidateVote++;
+                        updateDatabase();
+                      }),
                 ),
-                RoundedButton(
-                    size: size / 1.8,
-                    buttonText: 'Submit',
-                    onPressed: () {
-                      candidateVote++;
-                      updateDatabase();
-                    }),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: RoundedButton(
+                      size: size,
+                      buttonText: 'Back',
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                ),
               ],
             ),
           ),
@@ -135,7 +164,11 @@ class _ConfirmVoteState extends State<ConfirmVote> {
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return DoneVoting(
-          name: candidateName, party: candidateParty, number: candidateNumber);
+        name: candidateName,
+        party: candidateParty,
+        number: candidateNumber,
+        imageUrl: widget.imageUrl,
+      );
     }));
   }
 }

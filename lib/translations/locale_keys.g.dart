@@ -9,6 +9,7 @@ abstract class LocaleKeys {
   static const otp_hint = 'otp_hint';
   static const login_button = 'login_button';
   static const next_button = 'next_button';
+  static const parties_text = 'Parties';
   static const successfully_voted_text = 'successfully_voted_text';
   static const you_will_be_automatically_text =
       'you_will_be_automatically_text';

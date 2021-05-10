@@ -1,7 +1,9 @@
 import 'package:election_voter/Components/RoundedButton.dart';
 import 'package:election_voter/Components/StyledText.dart';
+import 'package:election_voter/Components/error_alert_dialog.dart';
 import 'package:election_voter/Screens/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:election_voter/Components/TextInputField.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,33 +23,32 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _nicNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _smsController = TextEditingController();
-  String _verificationId;
+  DatabaseReference _db = FirebaseDatabase.instance.reference();
+  List<String> mobileNoList = List<String>();
+  List<dynamic> nicList = List<dynamic>();
+  List keyList;
+  List valueList;
+  var mobileOnDB;
+  var nameOnDB;
 
-  Future<void> verifyPhoneNumber(phoneNum) async {
-    final PhoneVerificationCompleted verified = (AuthCredential authResult) {
-      AuthService().signIn(authResult);
-    };
+  @override
+  void initState() {
+    fetchMobileNumbers();
+    super.initState();
+  }
 
-    final PhoneVerificationFailed verificationFailed =
-        (AuthException authException) {
-      print('${authException.message}');
-    };
-
-    final PhoneCodeSent smsSent = (String verID, [int forceResent]) {
-      this._verificationId = verID;
-    };
-
-    final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verID) {
-      this._verificationId = verID;
-    };
-
-    await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNum,
-        timeout: const Duration(seconds: 5),
-        verificationCompleted: verified,
-        verificationFailed: verificationFailed,
-        codeSent: smsSent,
-        codeAutoRetrievalTimeout: autoTimeout);
+  fetchMobileNumbers() async {
+    _db.child("voter").once().then((DataSnapshot snapshot) {
+      Map<dynamic, dynamic> values = snapshot.value;
+      values.forEach((key, values) async {
+        mobileNoList.add(values['mobile'].toString());
+        nicList.add(values['nic'].toString());
+      });
+    });
+    Future.delayed(Duration(seconds: 2), () {
+      print(mobileNoList);
+      print(nicList);
+    });
   }
 
   @override
@@ -58,6 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
     String name;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -86,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Text(
                       LocaleKeys.signup_to_your_text.tr(),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
+                          fontWeight: FontWeight.bold, fontSize: 28.0),
                     ),
                   ),
                   SizedBox(
@@ -141,26 +143,92 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  RoundedButton(
-                      size: size,
-                      buttonText: LocaleKeys.submit_button_s_up.tr(),
-                      onPressed: () {
-                        print(_nicNumberController.text);
-                        print(_phoneNumberController.text);
-                        print(_nameController.text);
-                        verifyPhoneNumber(_phoneNumberController.text);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return LoginScreen(
-                            phone: _phoneNumberController.text,
-                          );
-                        }));
-                      })
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: RoundedButton(
+                        size: size,
+                        buttonText: LocaleKeys.submit_button_s_up.tr(),
+                        onPressed: () {
+                          print(_nicNumberController.text);
+                          print(_phoneNumberController.text);
+                          print(_nameController.text);
+                          if (_phoneNumberController.text.isEmpty ||
+                              _nicNumberController.text.isEmpty) {
+                            showDialog(
+                                context: context,
+                                builder: (c) {
+                                  return ErrorAlertDialog(
+                                    message: "Please fill all the fields",
+                                  );
+                                });
+                          } else if (_phoneNumberController.text.isNotEmpty &&
+                              _nicNumberController.text.isNotEmpty) {
+                            if (nicList.contains(_nicNumberController.text) ==
+                                true) {
+                              _db
+                                  .child("voter")
+                                  .child(_nicNumberController.text)
+                                  .once()
+                                  .then((DataSnapshot snapshot) {
+                                keyList = snapshot.value.keys.toList();
+                                valueList = snapshot.value.values.toList();
+                                print(keyList);
+                                print(valueList);
+                              });
+                              Future.delayed(Duration(seconds: 2), () {
+                                if (valueList[0] != "" && valueList[1] != "") {
+                                  showDialog(
+                                      context: context,
+                                      builder: (c) {
+                                        return ErrorAlertDialog(
+                                          message: "You have already voted!",
+                                        );
+                                      });
+                                } else if (valueList[0] == "" &&
+                                    valueList[1] == "") {
+                                  updateDatabase();
+                                }
+                              });
+                            } else if (nicList
+                                    .contains(_nicNumberController.text) ==
+                                false) {
+                              showDialog(
+                                  context: context,
+                                  builder: (c) {
+                                    return ErrorAlertDialog(
+                                      message: "Invalid NIC",
+                                    );
+                                  });
+                            }
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (c) {
+                                  return ErrorAlertDialog(
+                                    message: "Please try again",
+                                  );
+                                });
+                          }
+                        }),
+                  ),
                 ],
               )),
             ],
           ),
         ]),
+      ),
+    );
+  }
+
+  void updateDatabase() async {
+    _db.child('voter').child(_nicNumberController.text).update({
+      "mobile": _phoneNumberController.text,
+      "name": _nameController.text,
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(phone: _phoneNumberController.text),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:election_voter/Components/StyledText.dart';
 import 'package:election_voter/Screens/PeopleList.dart';
+import 'package:election_voter/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PartyScreen extends StatefulWidget {
   @override
@@ -31,7 +33,7 @@ class _PartyScreenState extends State<PartyScreen> {
           title: Padding(
             padding: EdgeInsets.fromLTRB(80, 3, 0, 0),
             child: StyledText(
-              text: 'Parties',
+              text: LocaleKeys.parties_text.tr(),
             ),
           ),
           elevation: 0,
@@ -62,7 +64,10 @@ class _PartyScreenState extends State<PartyScreen> {
                 },
                 child: Container(
                   height: 80,
-                  color: colors[index],
+                  decoration: BoxDecoration(
+                    color: colors[index],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   child: Center(
                       child: StyledText(
                     text: '${entries[index]}',

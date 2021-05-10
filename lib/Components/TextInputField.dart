@@ -25,45 +25,46 @@ class TextInputField extends StatelessWidget {
   final onSubmit;
   final controller;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       height: size.height * 0.09,
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.withOpacity(0.2),
+        border: Border.all(color: Colors.black.withOpacity(0.6)),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-            child: Icon(
-              icon,
-              size: 28,
-              color: Color(0xFF28abb9),
+      child: Center(
+        child: TextField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Icon(
+                icon,
+                size: 25,
+                color: Colors.grey.withOpacity(0.4),
+              ),
+            ),
+            hintText: hint,
+            hintStyle: GoogleFonts.lato(
+              fontSize: 20,
+              color: Colors.black.withOpacity(0.6),
             ),
           ),
-          contentPadding: EdgeInsets.only(top: 25),
-          hintText: hint,
-          hintStyle: GoogleFonts.lato(
-            fontSize: 25,
-            color: Color(0xFF28abb9),
+          obscureText: obsecureText,
+          style: GoogleFonts.lato(
+            fontSize: 20,
+            color: Colors.black.withOpacity(0.7),
           ),
+          keyboardType: inputType,
+          textInputAction: inputAction,
+          onChanged: onChanged,
+          onSubmitted: onSubmit,
+          autocorrect: true,
+          controller: controller,
         ),
-        obscureText: obsecureText,
-        style: GoogleFonts.lato(
-          fontSize: 20,
-          color: Color(0xFF28abb9),
-        ),
-        keyboardType: inputType,
-        textInputAction: inputAction,
-        onChanged: onChanged,
-        onSubmitted: onSubmit,
-        autocorrect: true,
-        controller: controller,
       ),
     );
   }

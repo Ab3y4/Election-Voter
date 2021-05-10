@@ -169,7 +169,10 @@ class _PeopleListState extends State<PeopleList> {
                     }));
                   },
                   child: Container(
-                    color: Colors.grey,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -188,7 +191,11 @@ class _PeopleListState extends State<PeopleList> {
                             // SizedBox(width: 5,),
                           ],
                         ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
                               height: 50,

@@ -18,77 +18,90 @@ class _LanguageScreenState extends State<LanguageScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 190,
+                ),
+                Center(
+                  child: Text(
+                    'Choose Your Language',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 40),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Colors.black,
+                  )),
+                ),
+                SizedBox(
+                  height: 80,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: RoundedButton(
+                    size: size,
+                    buttonText: 'English',
+                    onPressed: () {
+                      context.setLocale(Locale('en'));
+                      print('English');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignupScreen();
+                      }));
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: RoundedButton(
+                    size: size,
+                    buttonText: 'සිoහල',
+                    onPressed: () {
+                      context.setLocale(Locale('fr'));
+                      print('Sinhala');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignupScreen();
+                      }));
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 190,
-              ),
-              Center(
-                child: StyledText(
-                  text: 'Choose your language',
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: Colors.black,
-                )),
-              ),
-              SizedBox(
-                height: 80,
-              ),
-              RoundedButton(
-                size: size,
-                buttonText: 'English',
-                onPressed: () {
-                  context.setLocale(Locale('en'));
-                  print('English');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return SignupScreen();
-                  }));
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              RoundedButton(
-                size: size,
-                buttonText: 'සිoහල',
-                onPressed: () {
-                  context.setLocale(Locale('fr'));
-                  print('Sinhala');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return SignupScreen();
-                  }));
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-            ],
-          ),
-        ],
-      ),
     );
+  }
+
+  Future<bool> _willPopCallback() async {
+    return Future.value(false);
   }
 }
